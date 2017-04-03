@@ -1,5 +1,7 @@
 package com.company;
 
+import com.sun.javafx.scene.control.skin.IntegerFieldSkin;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -85,13 +87,15 @@ public class ElevensBoard extends Board {
     private ArrayList<Integer> findPairSum11(List<Integer> selectedCards) {
 		/* *** TO BE CHANGED INTO findPairSum11 IN ACTIVITY 11 *** */
         ArrayList <Integer> a=new ArrayList<>();
-        for (int sk1 = 0; sk1 < selectedCards.size(); sk1++) {
-            int k1 = selectedCards.get(sk1).intValue();
-            for (int sk2 = sk1 + 1; sk2 < selectedCards.size(); sk2++) {
-                int k2 = selectedCards.get(sk2).intValue();
-                if (cardAt(k1).pointValue() + cardAt(k2).pointValue() == 11) {
-                    a.add(k1);
-                    a.add(k2);
+        if (selectedCards.size()>1) {
+            for (int sk1 = 0; sk1 < selectedCards.size()-1; sk1++) {
+                int k1 = selectedCards.get(sk1).intValue();
+                for (int sk2 = sk1 + 1; sk2 < selectedCards.size(); sk2++) {
+                    int k2 = selectedCards.get(sk2).intValue();
+                    if (cardAt(k1).pointValue() + cardAt(k2).pointValue() == 11) {
+                        a.add(k1);
+                        a.add(k2);
+                    }
                 }
             }
         }
@@ -109,11 +113,11 @@ public class ElevensBoard extends Board {
     private ArrayList<Integer> findJQK(List<Integer> selectedCards) {
 		/* *** TO BE CHANGED INTO findJQK IN ACTIVITY 11 *** */
         ArrayList<Integer> a=new ArrayList<>();
-
+        if (selectedCards.size()>2)
         for (int i=0;i<selectedCards.size()-2;i++) {
             for(int j=i+1;j<selectedCards.size()-1;j++) {
                 for (int f=i+2;f<selectedCards.size();f++) {
-                    if (cardAt(selectedCards.get(i)).pointValue() + cardAt(selectedCards.get(j)).pointValue() + cardAt(selectedCards.get(f)).pointValue() == 0) {
+                    if ((cardAt(selectedCards.get(i)).pointValue() + cardAt(selectedCards.get(j)).pointValue() + cardAt(selectedCards.get(f)).pointValue()) == 0) {
                         a.add(i);
                         a.add(j);
                         a.add(f);
@@ -144,15 +148,18 @@ public class ElevensBoard extends Board {
      */
     private boolean playPairSum11IfPossible() {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 11 *** */
+        System.out.print("pair  ");
         List<Integer> cIndexes = cardIndexes();
         ArrayList<Integer> a=findPairSum11(cIndexes);
+        cIndexes=new ArrayList<>();
         if (a.size()>0){
-            cIndexes.clear();
+            System.out.print("... ");
             cIndexes.add(a.get(0));
             cIndexes.add(a.get(1));
             replaceSelectedCards(cIndexes);
-
+            System.out.println("y");
         }
+        System.out.println("");
         return  a.size()>0;
     }
 
@@ -163,15 +170,19 @@ public class ElevensBoard extends Board {
      * @return true if a JQK play was found (and made); false othewise.
      */
     private boolean playJQKIfPossible() {
+        System.out.print("JQK  ");
         List<Integer> cIndexes = cardIndexes();
          ArrayList<Integer>a=findJQK(cIndexes);
+        cIndexes=new ArrayList<>();
         if(a.size()>0){
-            cIndexes.clear();
+            System.out.print("... ");
             cIndexes.add(a.get(0));
             cIndexes.add(a.get(1));
             cIndexes.add(a.get(2));
             replaceSelectedCards(cIndexes);
+            System.out.println("y");
         }
+        System.out.println();
         return a.size()>0;
     }
 }

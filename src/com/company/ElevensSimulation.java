@@ -35,10 +35,10 @@ public class ElevensSimulation {
             }
             if (board.gameIsWon()) {
                 wins++;
-                System.out.println("win");
+                System.out.println("\t\t\twin\n\n");
             }
             else
-                System.out.println("lose");
+                System.out.println("\t\t\tlose\n\n");
             board.newGame();
         }
 

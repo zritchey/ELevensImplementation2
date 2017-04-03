@@ -72,6 +72,7 @@ public class Deck {
             cards.set(randPos, temp);
         }
         size = cards.size();
+        System.out.println("deck size: "+size);
     }
 
     /**
